@@ -19,6 +19,16 @@ module.exports = {
         'global-require': 0,
         'no-unused-vars': 0,
         'spaced-comment': 0,
+        'no-trailing-spaces': 0,
+        'prefer-promise-reject-errors': 0,
+        'no-empty': 0,
+        'brace-style': 0,
+        'consistent-return': 0,
+        'newline-per-chained-call': 0,
+        'class-methods-use-this': 0,
+        'no-shadow': 0,
+        'max-len': 0,
         camelcase: 0,
+        'function-paren-newline': 0,
     }
 };

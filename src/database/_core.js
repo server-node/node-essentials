@@ -16,6 +16,7 @@ class Database {
             console.log('MongoDB Connected!');
             // Load Sub DB Classes
             //this.EtherNftMarketplaceTransactions = require('./template')(this.mongoose);
+            this.Users = require('./Users')(this.mongoose);
 
         });
     }

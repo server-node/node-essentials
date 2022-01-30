@@ -1,6 +1,7 @@
 // initializing the Express
 
 const express = require('express');
+
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -16,6 +17,7 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+
 // !initializing the Express
 
 // setting the databse
@@ -32,7 +34,7 @@ app.use((req, res, next) => {
 
 // setting the routes and middlewares
 
-app.get('/', (req, res) => {
+app.get('/test', (req, res) => {
   res.json({
     message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
   });

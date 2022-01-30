@@ -11,12 +11,38 @@ function errorHandler(err, req, res, next) {
   const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
   res.status(statusCode);
   res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack
+    error: err.message,
+    // stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack
   });
+}
+
+async function userAuthenticate(req, res, next) {
+  if (req.get('Authorization')) {
+    await res.locals.db.Users.tokenVerify(req.get('Authorization'), async (err, ressult) => {
+      if (err) {
+
+        return res.status(401).json({ error: `Authorization failed: ${err.message}` });
+        // const error = new Error(err.message);
+        // next(error);
+      }
+      const user = await res.locals.db.Users.getUserWithId(ressult.userId).catch(() => { })
+      if (user == null) {
+        return res.status(401).json({ error: 'Authorization failed: user not found' });
+      }
+      res.locals.user = user
+
+      next()
+    })
+  }
+  else {
+    res.status(401).json({ error: 'Authorization failed: no token' });
+    // const error = new Error('Authorization failed: no token');
+    // next(error);
+  }
 }
 
 module.exports = {
   notFound,
   errorHandler,
+  userAuthenticate
 };
